@@ -21,11 +21,16 @@ The system MUST print every saved book, in stored order, when the user runs `boo
 - **THEN** the command exits successfully and prints no books
 
 ### Requirement: Filter the list by author
-The system MUST print only books whose stored author matches `--author` when that value is not empty after trimming. The comparison MUST ignore letter case and MUST use the whole trimmed name. Books with no stored author MUST be omitted. Matching books MUST stay in stored order. On success the command MUST exit successfully.
+The system MUST print only books whose stored author contains the trimmed `--author` value when that value is not empty. The comparison MUST ignore letter case and MUST be a like match: any part of the author matches against the whole stored author. Books with no stored author MUST be omitted. Matching books MUST stay in stored order. On success the command MUST exit successfully.
 
 #### Scenario: One author matches
 - **GIVEN** a list containing "Dune" by "Frank Herbert" and "Neuromancer" by "William Gibson"
 - **WHEN** the user runs `bookshelf list --author "Frank Herbert"`
+- **THEN** the output includes "Dune" and "Frank Herbert", does not include "Neuromancer", and the command exits successfully
+
+#### Scenario: Part of the author matches
+- **GIVEN** a list containing "Dune" by "Frank Herbert" and "Neuromancer" by "William Gibson"
+- **WHEN** the user runs `bookshelf list --author "Frank"`
 - **THEN** the output includes "Dune" and "Frank Herbert", does not include "Neuromancer", and the command exits successfully
 
 #### Scenario: Two books by the same author
