@@ -1,32 +1,29 @@
 schema: spec-driven
 
-# openspec/config.yaml
-project:
-  name: bookshelf
-  description: "A CLI application built with Node.js and TypeScript for managing a personal reading list."
+context: |
+  Personal reading-list CLI for one person on one machine.
+  Keep it a local command-line tool: no server, accounts, or sync.
+  Prefer the stack and patterns already in the repo.
 
-context:
-  technology_stack:
-    runtime: "Node.js (v24+)"
-    language: "TypeScript (Strict Mode)"
-    testing: "Vitest"
-    storage: "Local JSON file (e.g., data/books.json)"
-    cli_parsing: "Commander.js or native Node.js argument parsing"
+rules:
+  proposal:
+    - State what is out of scope
+    - Keep the change to one reading-list behavior
+  specs:
+    - Every requirement uses RFC 2119 keywords (MUST, SHOULD, MAY)
+    - Scenarios use GIVEN / WHEN / THEN
+    - Cover edge cases such as a missing list file and empty fields
+  design:
+    - Prefer the existing JSON file and node:util parseArgs
+    - Do not add a database, a web UI, or a third-party CLI framework unless the change requires it
+  tasks:
+    - Keep each task small enough to implement and test in one pass
+    - Include a test task for each behavior change
 
-  code_style:
-    formatting: "Prettier / ESLint standard"
-    naming_conventions:
-      files: "kebab-case (e.g., book-repository.ts)"
-      classes: "PascalCase (e.g., BookRepository)"
-      variables_and_functions: "camelCase (e.g., addBook, getBookById)"
-      types_and_interfaces: "PascalCase (e.g., Book, AddBookInput)"
-    principles:
-      - "Write simple, clean, and readable code without unnecessary abstractions."
-      - "All types should be explicitly defined (avoid using 'any')."
-      - "Error handling should produce clear, user-friendly CLI output."
-
-  spec_conventions:
-    requirements:
-      - "Every requirement MUST use RFC 2119 keywords (MUST, SHOULD, MAY)."
-      - "Test scenarios MUST follow the GIVEN / WHEN / THEN format."
-      - "Always include edge cases (e.g., missing JSON file, empty fields)."
+operations:
+  apply:
+    guidance:
+      - Use kebab-case file names, PascalCase for types, and camelCase for functions
+      - Keep types explicit and do not use any
+      - Prefer small, readable modules over extra abstraction
+      - CLI errors should be clear to the person running the command
