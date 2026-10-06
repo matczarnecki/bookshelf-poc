@@ -41,13 +41,13 @@ No header and no "no books" line. An empty result is empty stdout. Errors from a
 
 Alternative: print JSON. Easier to pipe, but the request is to print the list for the person running the command, and the add command already uses a one-line text message.
 
-### Match the whole author, ignoring case
+### Match part of the author, ignoring case
 
-Trim the filter. Compare it with the stored author using `toLowerCase()` on both sides. The stored value is trimmed only for the comparison; the file is not rewritten. A book with no author never matches. `"Frank"` does match `"Frank Herbert"` - filter uses '%like%' case so only the part of author can be given to correctly filter through.
+Trim the filter. A book matches when its stored author contains that filter. Compare both sides with `toLowerCase()`. The stored value is trimmed only for the comparison; the file is not rewritten. A book with no author never matches. `"Frank"` matches `"Frank Herbert"`.
 
 A present `--author` whose trimmed value is empty fails before the file is read, with a clear error, usage on stderr, and exit 1.
 
-Alternative: substring or locale-aware matching. Rejected because the proposal fixes whole-name matching, and `toLowerCase()` stays stable across machines.
+Alternative: locale-aware matching. Rejected because `toLowerCase()` stays stable across machines.
 
 ## Risks / Trade-offs
 

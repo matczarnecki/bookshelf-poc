@@ -21,6 +21,27 @@ export class ReadingListError extends Error {
   }
 }
 
+export async function listBooks(
+  filePath: string,
+  author?: string,
+): Promise<Book[]> {
+  const books = await readBooks(filePath);
+  if (author === undefined) {
+    return books;
+  }
+
+  const filter = author.trim().toLowerCase();
+  return books.filter((book) => authorContains(book.author, filter));
+}
+
+function authorContains(author: string | undefined, filter: string): boolean {
+  const stored = author?.trim() ?? "";
+  if (stored.length === 0) {
+    return false;
+  }
+  return stored.toLowerCase().includes(filter);
+}
+
 export async function addBook(
   filePath: string,
   input: AddBookInput,
