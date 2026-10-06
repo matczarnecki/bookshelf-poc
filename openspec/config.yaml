@@ -1,0 +1,32 @@
+schema: spec-driven
+
+# openspec/config.yaml
+project:
+  name: bookshelf
+  description: "A CLI application built with Node.js and TypeScript for managing a personal reading list."
+
+context:
+  technology_stack:
+    runtime: "Node.js (v24+)"
+    language: "TypeScript (Strict Mode)"
+    testing: "Vitest"
+    storage: "Local JSON file (e.g., data/books.json)"
+    cli_parsing: "Commander.js or native Node.js argument parsing"
+
+  code_style:
+    formatting: "Prettier / ESLint standard"
+    naming_conventions:
+      files: "kebab-case (e.g., book-repository.ts)"
+      classes: "PascalCase (e.g., BookRepository)"
+      variables_and_functions: "camelCase (e.g., addBook, getBookById)"
+      types_and_interfaces: "PascalCase (e.g., Book, AddBookInput)"
+    principles:
+      - "Write simple, clean, and readable code without unnecessary abstractions."
+      - "All types should be explicitly defined (avoid using 'any')."
+      - "Error handling should produce clear, user-friendly CLI output."
+
+  spec_conventions:
+    requirements:
+      - "Every requirement MUST use RFC 2119 keywords (MUST, SHOULD, MAY)."
+      - "Test scenarios MUST follow the GIVEN / WHEN / THEN format."
+      - "Always include edge cases (e.g., missing JSON file, empty fields)."
